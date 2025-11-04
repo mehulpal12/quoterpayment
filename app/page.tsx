@@ -4,11 +4,20 @@ import { useState, useMemo } from "react"
 import Sidebar from "@/components/sidebar"
 import MainContent from "@/components/main-content"
 import Footer from "@/components/footer"
+import EMICalculator from "@/components/emicalculator"
 
 export default function Home() {
   const [selectedAppType, setSelectedAppType] = useState<string | null>(null)
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([])
-  const [discountPercent, setDiscountPercent] = useState(10)
+  // start with no discount; apply when user clicks the button
+  const [discountPercent, setDiscountPercent] = useState(0)
+  const [discountApplied, setDiscountApplied] = useState(false)
+
+  const applyDiscount = () => {
+    if (discountApplied) return // no-op if already applied
+    setDiscountPercent(10)
+    setDiscountApplied(true)
+  }
 
   const appTypes = [
     { id: "doc-signing", name: "Document Signing Systems", basePrice: 65000 },
@@ -66,15 +75,15 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+    <div className="min-h-screen w-[75vw] mx-auto mt-5 p-8 border rounded-lg  container bg-[#09080b]">
       {/* Header */}
-      <header className="border-b border-slate-800 bg-slate-900/50 backdrop-blur-sm">
+      <header className="border-[#09080b]  backdrop-blur-sm">
         <div className="px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="text-cyan-400 font-bold text-xl">R♦D</div>
             <div>
-              <h1 className="text-white text-lg font-semibold">Welcome Back!</h1>
-              <p className="text-slate-400 text-sm">
+              <h1 className="text-white text-lg font-semibold mx-3">Welcome Back!</h1>
+              <p className="text-slate-400 text-sm mx-3">
                 Pick the web app type, choose features/add-ons, view pricing (excl. GST), EMI options and 10%
                 BNI/referral discount available.
               </p>
@@ -94,6 +103,9 @@ export default function Home() {
           onToggleFeature={toggleFeature}
           calculations={calculations}
           discountPercent={discountPercent}
+          discountApplied={discountApplied}
+          onApplyDiscount={applyDiscount}
+          emiCalculator={EMICalculator}
         />
       </div>
 

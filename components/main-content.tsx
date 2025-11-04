@@ -1,5 +1,8 @@
 "use client"
 
+import { useState } from "react"
+import EMICalculator from "./emicalculator"
+
 interface AppType {
   id: string
   name: string
@@ -28,6 +31,9 @@ interface MainContentProps {
   onToggleFeature: (id: string) => void
   calculations: Calculations
   discountPercent: number
+  discountApplied: boolean
+  emiCalculator?: any
+  onApplyDiscount: () => void
 }
 
 export default function MainContent({
@@ -38,8 +44,18 @@ export default function MainContent({
   onToggleFeature,
   calculations,
   discountPercent,
+  discountApplied,
+  onApplyDiscount,
+  emiCalculator
 }: MainContentProps) {
+  const [showEmi, setShowEmi] = useState(false)
   const appType = appTypes.find((t) => t.id === selectedAppType)
+      const takeScreenshot = async () => {
+        const response = await fetch(`/api/screenshot?url=${encodeURIComponent(window.location.href)}`);
+        const imageBlob = await response.blob();
+        const imageUrl = URL.createObjectURL(imageBlob);
+        // Use imageUrl to display or download the screenshot
+    };
 
   return (
     <div className="flex-1 space-y-6">
@@ -100,6 +116,12 @@ export default function MainContent({
           ))}
         </div>
       </div>
+            {showEmi && (
+        <div className="">
+          <EMICalculator calculations={calculations} />
+        
+        </div>
+      )}
 
       {/* Calculations */}
       <div className="bg-slate-800/30 border border-slate-700 rounded-lg p-6 space-y-3">
@@ -120,19 +142,38 @@ export default function MainContent({
 
       {/* Action Buttons */}
       <div className="flex gap-3 flex-wrap">
-        <button className="bg-cyan-400 hover:bg-cyan-500 text-slate-900 font-semibold px-6 py-3 rounded-lg transition-colors">
-          BNI / Referral 10% Applied ✓
+        <button
+          type="button"
+          onClick={onApplyDiscount}
+          disabled={discountApplied}
+          className={`font-semibold px-6 py-3 rounded-lg transition-colors ${
+            discountApplied
+              ? "bg-slate-700 text-slate-400 cursor-not-allowed"
+              : "bg-cyan-400 hover:bg-cyan-500 text-slate-900"
+          }`}
+        >
+          {discountApplied ? "BNI / Referral 10% Applied ✓" : "Apply BNI / Referral 10%"}
         </button>
-        <button className="border border-slate-600 hover:border-slate-500 text-white px-6 py-3 rounded-lg transition-colors">
-          Show EMI Options
+
+        <button
+          className={`border px-6 py-3 rounded-lg transition-colors ${
+            showEmi ? "bg-cyan-500 text-slate-900" : "border-slate-600 hover:border-slate-500 text-white"
+          }`}
+          onClick={() => setShowEmi((s) => !s)}
+        >
+          {showEmi ? "Hide EMI Options" : "Show EMI Options"}
         </button>
-        <button className="border border-slate-600 hover:border-slate-500 text-white px-6 py-3 rounded-lg transition-colors">
+
+        <button className="border border-slate-600 hover:border-slate-500 text-white px-6 py-3 rounded-lg transition-colors" onClick={takeScreenshot}>
           Download Quote Snapshot
         </button>
         <button className="border border-slate-600 hover:border-slate-500 text-white px-6 py-3 rounded-lg transition-colors">
           Copy Quote
         </button>
       </div>
+
+      {/* EMI Modal */}
+
 
       {/* EMI Details */}
       <div className="bg-slate-800/30 border border-slate-700 rounded-lg p-4 text-xs text-slate-400">
