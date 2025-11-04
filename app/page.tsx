@@ -76,7 +76,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen w-[75vw] mx-auto mt-5 p-8 border rounded-lg  container bg-[#09080b]">
+    <div className="min-h-screen w-[75vw] mx-auto mt-5 p-4 border rounded-lg  container bg-[#09080b]">
       {/* Header */}
       <header className="border-[#09080b]  backdrop-blur-sm">
         <div className="px-6 py-4 flex items-center justify-between">
@@ -85,8 +85,8 @@ export default function Home() {
              <Image src="/RD.png" alt="" width={60} height={60} className="rounded-lg" />
             </div>
             <div>
-              <h1 className="text-white text-lg font-semibold mx-3">Welcome Back!</h1>
-              <p className="text-slate-400 text-sm mx-3">
+              <h1 className="text-slate-200 text-lg font-semibold mx-3">Welcome Back!</h1>
+              <p className="text-slate-500 text-sm mx-2">
                 Pick the web app type, choose features/add-ons, view pricing (excl. GST), EMI options and 10%
                 BNI/referral discount available.
               </p>
@@ -96,7 +96,7 @@ export default function Home() {
       </header>
 
       {/* Main Container */}
-      <div className="flex gap-6 p-6 max-w-7xl mx-auto">
+      <div className="flex gap-6 p-2 max-w-7xl mx-auto">
         <Sidebar appTypes={appTypes} selectedAppType={selectedAppType} onSelectAppType={setSelectedAppType} />
         <MainContent
           appTypes={appTypes}
