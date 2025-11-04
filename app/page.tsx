@@ -5,6 +5,7 @@ import Sidebar from "@/components/sidebar"
 import MainContent from "@/components/main-content"
 import Footer from "@/components/footer"
 import EMICalculator from "@/components/emicalculator"
+import Image from "next/image"
 
 export default function Home() {
   const [selectedAppType, setSelectedAppType] = useState<string | null>(null)
@@ -80,7 +81,9 @@ export default function Home() {
       <header className="border-[#09080b]  backdrop-blur-sm">
         <div className="px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="text-cyan-400 font-bold text-xl">R♦D</div>
+            <div className="text-cyan-400 font-bold text-xl ">
+             <Image src="/RD.png" alt="" width={60} height={60} className="rounded-lg" />
+            </div>
             <div>
               <h1 className="text-white text-lg font-semibold mx-3">Welcome Back!</h1>
               <p className="text-slate-400 text-sm mx-3">

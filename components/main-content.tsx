@@ -62,7 +62,7 @@ export default function MainContent({
       {/* Header Section */}
       <div className="flex justify-between items-start">
         <div>
-          <h2 className="text-2xl font-bold text-white mb-2">— Select an app type —</h2>
+          <h2 className="text-2xl font-bold text-white mb-2"> {appType?.name ? appType.name : "— Select an app type —"}</h2>
           <p className="text-slate-400 text-sm">Features & base price will populate here</p>
         </div>
         <div className="text-right">
@@ -109,8 +109,8 @@ export default function MainContent({
                 className="mt-1 w-4 h-4 rounded border-slate-600 bg-slate-700 cursor-pointer accent-cyan-400"
               />
               <div>
-                <div className="text-white text-sm font-medium">{feature.name}</div>
-                <div className="text-cyan-400 text-sm">₹{feature.price.toLocaleString("en-IN")}</div>
+                <div className="text-gray-300 text-sm font-medium">{feature.name}</div>
+                <div className="text-gray-400 text-sm">₹{feature.price.toLocaleString("en-IN")}</div>
               </div>
             </label>
           ))}
